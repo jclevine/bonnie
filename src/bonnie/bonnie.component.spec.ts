@@ -1,31 +1,31 @@
 import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { BonnieComponent } from './bonnie.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        BonnieComponent
       ],
     }).compileComponents();
   }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('should create the bonnie', () => {
+    const fixture = TestBed.createComponent(BonnieComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'complice'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(BonnieComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('complice');
+    expect(app.title).toEqual('bonnie');
   });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(BonnieComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('complice app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('bonnie bonnie is running!');
   });
 });
