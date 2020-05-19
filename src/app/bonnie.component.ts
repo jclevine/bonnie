@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'bo-root',
   templateUrl: './bonnie.component.html',
   styleUrls: ['./bonnie.component.css']
 })
 export class BonnieComponent {
-  title = 'bonnie';
+
 }
