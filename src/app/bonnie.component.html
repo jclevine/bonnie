@@ -1,13 +1,21 @@
 <body>
-<article class="source">
-<bo-rtm></bo-rtm>
-</article>
 
-<article class="source">
-<bo-gcal></bo-gcal>
-</article>
+<!-- Entire thing -->
+<div class="container d-flex flex-stretch p-5">
 
-<article class="target">
-<bo-complice></bo-complice>
-</article>
+  <!-- Container of 2 half-sections -->
+  <div class="card flex-row align-content-stretch flex-fill justify-content-around border-dark">
+
+    <div class="card flex-column flex-grow-1 border-dark p-2">
+      <bo-rtm></bo-rtm>
+      <bo-gcal></bo-gcal>
+    </div>
+
+    <div class="card flex-row flex-grow-1 border-dark p-2">
+      <bo-complice></bo-complice>
+    </div>
+
+  </div>
+</div>
+
 </body>
