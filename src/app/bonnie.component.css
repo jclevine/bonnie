@@ -1,3 +1,10 @@
 .potential-intention {
   padding: 5px;
 }
+
+/* Hack for now because of my inability to rowspan */
+.complice {
+  color: rgb(212, 211, 220);
+  background-color: rgb(45, 35, 85);
+}
+

@@ -4,17 +4,18 @@
 <div class="container d-flex flex-stretch p-5">
 
   <!-- Container of 2 half-sections -->
-  <div class="card flex-row align-content-stretch flex-fill justify-content-around border-dark">
+  <div class="card flex-row flex-fill border-dark">
 
-    <div class="card flex-column flex-grow-1 border-dark p-2">
+    <div class="container card flex-column flex-fill border-dark p-2">
       <bo-rtm></bo-rtm>
       <bo-gcal></bo-gcal>
     </div>
 
-    <div class="card flex-row flex-grow-1 border-dark p-2">
-      <bo-complice></bo-complice>
+    <div class="container card flex-column flex-fill border-dark p-2">
+      <div class="container complice border-dark flex-fill">
+        <bo-complice></bo-complice>
+      </div>
     </div>
-
   </div>
 </div>
 
