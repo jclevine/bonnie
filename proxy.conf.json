@@ -1,0 +1,8 @@
+{
+  "/services/rest/*": {
+    "target": "https://api.rememberthemilk.com/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel":"debug"
+  }
+}

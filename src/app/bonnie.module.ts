@@ -6,6 +6,7 @@ import {RtmComponent} from './rtm/rtm.component';
 import { GcalComponent } from './gcal/gcal.component';
 import { CompliceComponent } from './complice/complice.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
   providers: [],
   exports: [
