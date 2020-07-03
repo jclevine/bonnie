@@ -44,3 +44,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Temp so I don't accidentally add my api key.
+**/rtm.service.ts
