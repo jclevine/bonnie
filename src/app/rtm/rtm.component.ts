@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Permissions, RtmService } from './rtm.service';
+import { Task } from './Task';
 
 @Component({
   selector: 'bo-rtm',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rtm.component.css']
 })
 export class RtmComponent implements OnInit {
+  tasks: Task[];
 
-  constructor() { }
+  constructor(private rtmService: RtmService) {
+    this.tasks = rtmService.authenticate('blah', Permissions.WRITE).getTasks();
+  }
 
   ngOnInit(): void {
   }
