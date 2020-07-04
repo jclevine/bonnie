@@ -6,7 +6,8 @@ import {RtmComponent} from './rtm/rtm.component';
 import { GcalComponent } from './gcal/gcal.component';
 import { CompliceComponent } from './complice/complice.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { SignatureInterceptor } from './rtm/signature-interceptor';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgbModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: SignatureInterceptor, multi: true } ],
   exports: [
     RtmComponent
   ],

@@ -1,7 +1,7 @@
-import { Task } from './Task';
+import { Task } from './task';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FrobResponse } from './RtmResponse';
+import { FrobResponse, RawFrobResponse } from './responses/rtm-response';
 
 export enum RtmPermissions {
   READ = 'read',
@@ -28,12 +28,23 @@ export class RtmCommander {
     return '2ab2e6ce5f3e008e04bfbd76195c2b4d';
   }
 
-  private buildUrl(method: string): string {
-    return `/services/rest/?method=${method}&api_key=${this.rtmApiId.apiKey}&format=json&api_sig=${RtmCommander.signRequest()}`;
+  private buildRequest(method: string, format = 'json'): string {
+    return {
+      params: {
+        method,
+        api_key: this.rtmApiId.apiKey,
+        format
+      },
+      headers: {
+        secretKey: this.rtmApiId.secretKey
+      }
+    };
   }
 
-  doAuth(): Observable<FrobResponse> {
-    return this.http.get<FrobResponse>(this.buildUrl('rtm.auth.getFrob'));
+  doAuth(): Observable<RawFrobResponse> {
+    return this.http.get<RawFrobResponse>(
+      '/services/rest/',
+      this.buildRequest('rtm.auth.getFrob'));
   }
 
   getTasks(): Task[] {
