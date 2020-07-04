@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RtmService } from './rtm.service';
-import { Task } from './Task';
-import { RtmCommander, RtmPermissions } from './RtmCommander';
+import { Task } from './task';
+import { RtmCommander, RtmPermissions } from './rtm-commander';
 
 @Component({
   selector: 'bo-rtm',
