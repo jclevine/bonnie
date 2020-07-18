@@ -1,9 +1,10 @@
 import { Task } from './task';
 import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { FrobResponse, RawFrobResponse } from './responses/rtm-response';
+import { FrobResponse, RawFrobResponse, RawTokenResponse, TokenResponse } from './responses/rtm-response';
 import { concatMap } from 'rxjs/operators';
 import { SignatureInterceptor } from './signature-interceptor';
+import { Token } from '@angular/compiler';
 
 export enum RtmPermissions {
   READ = 'read',
@@ -16,6 +17,7 @@ export interface RtmApiId {
   secretKey: string;
   rtmPermissions: RtmPermissions;
 }
+
 
 export class RtmCommander {
 
@@ -31,7 +33,8 @@ export class RtmCommander {
       params: {
         method,
         api_key: this.rtmApiId.apiKey,
-        format
+        format,
+        frob: undefined
       },
       headers: {
         secretKey: this.rtmApiId.secretKey
@@ -44,18 +47,25 @@ export class RtmCommander {
       '/services/rest/',
       this.buildRequest('rtm.auth.getFrob')
     ).pipe(
-      concatMap(response => of(this.printOutAcceptUrl(response)))
+      // TODO: jlevine - Already accepted auth, need to put this into a more simple workflow, but no longer need it
+      concatMap(rawFrobResponse => of(this.printOutAcceptUrl(rawFrobResponse))),
+      concatMap(frob => this.getToken(frob)),
+      concatMap(rawTokenResponse => {
+        const token: string = new TokenResponse(rawTokenResponse).token;
+        console.log(token);
+        return token;
+      })
     );
   }
 
   printOutAcceptUrl(rawFrobResponse: RawFrobResponse): string {
-    const url = this.buildAcceptUrl(new FrobResponse(rawFrobResponse).getFrob());
+    const frob = new FrobResponse(rawFrobResponse).frob;
+    const url = this.buildAcceptUrl(frob);
     console.log(url);
-    return url;
+    return frob;
   }
 
   buildAcceptUrl(frob: string) {
-
     const signature = SignatureInterceptor.sign(this.rtmApiId.secretKey, new HttpParams({
       fromObject: {
         api_key: this.rtmApiId.apiKey,
@@ -93,5 +103,15 @@ export class RtmCommander {
         name: 'Get recipe from Andrea for falafel salad'
       }
     ];
+  }
+
+  private getToken(frob: string): Observable<RawTokenResponse> {
+    const request = this.buildRequest('rtm.auth.getToken');
+    request.params.frob = frob;
+    request.params.perms = this.rtmApiId.rtmPermissions;
+    return this.http.get<RawTokenResponse>(
+      '/services/rest/',
+      request
+    );
   }
 }
