@@ -18,8 +18,8 @@ export class SignatureInterceptor implements HttpInterceptor {
     return next.handle(signedReq);
   }
 
-  sign(secretKey: string, params: HttpParams) {
-    return new Md5().appendStr(`${secretKey}${this.buildSortedParamString(params)}`).end();
+  sign(secretKey: string, params: HttpParams): string {
+    return String(new Md5().appendStr(`${secretKey}${this.buildSortedParamString(params)}`).end());
   }
 
   private buildSortedParamString(params: HttpParams) {
@@ -31,9 +31,5 @@ export class SignatureInterceptor implements HttpInterceptor {
     return keys.slice(1).reduce(
         (previousValue, currentValue) => previousValue.concat(currentValue, params.get(currentValue)),
         paramString);
-  }
-
-  private buildConcatKeyValue(key: string, params: HttpParams) {
-    return `${key}${params[key]}`;
   }
 }
