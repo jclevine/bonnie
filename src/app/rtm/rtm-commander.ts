@@ -24,11 +24,7 @@ export class RtmCommander {
   private rtmApiId: RtmApiId;
   private http: HttpClient;
 
-  private static signRequest() {
-    return '2ab2e6ce5f3e008e04bfbd76195c2b4d';
-  }
-
-  private buildRequest(method: string, format = 'json'): string {
+  private buildRequest(method: string, format = 'json') {
     return {
       params: {
         method,
